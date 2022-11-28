@@ -1,6 +1,13 @@
-//
-// Created by LEI XU on 4/11/19.
-//
+/*
+ * @Author: GuinGuinSzu guinguinboys@gmail.com
+ * @Date: 2022-11-28 23:38:36
+ * @LastEditors: GuinGuinSzu guinguinboys@gmail.com
+ * @LastEditTime: 2022-11-29 00:07:22
+ * @FilePath: \Games_Render\Assignment1\Triangle.hpp
+ * @Description: This is to Make The Triangle
+ * 
+ * Copyright (c) 2022 by GuinGuinSzu guinguinboys@gmail.com, All Rights Reserved. 
+ */
 
 #ifndef RASTERIZER_TRIANGLE_H
 #define RASTERIZER_TRIANGLE_H
@@ -24,12 +31,12 @@ public:
   // 三角形顶点的属性 
   // 颜色
   Vector3f color[3];      // color at each vertex;
+  
   // uv贴图
   Vector2f tex_coords[3]; // texture u,v
+  
   // 顶点法线
   Vector3f normal[3];     // normal vector for each vertex
-
-  Vector3f normal[3];      // nomal vector for each vertex
 
   // Texture *tex; *tex to make the Texture Mapping
   Triangle();
