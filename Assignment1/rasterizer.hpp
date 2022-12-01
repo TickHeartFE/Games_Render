@@ -41,6 +41,9 @@ inline Buffers operator&(Buffers a, Buffers b)
     // Triangle
 // };
 
+// 枚举绘制的类型
+// 第一种类型为Line直线绘制
+// 第二种类型为Triangle三角形绘制
 enum class Primitive {
     Line,
     Triangle
