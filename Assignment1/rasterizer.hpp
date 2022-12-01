@@ -2,7 +2,7 @@
  * @Author: GuinGuinSzu guinguinboys@gmail.com
  * @Date: 2022-11-27 18:57:13
  * @LastEditors: GuinGuinSzu guinguinboys@gmail.com
- * @LastEditTime: 2022-11-28 14:30:07
+ * @LastEditTime: 2022-12-01 19:02:37
  * @FilePath: \Assignment1\rasterizer.hpp
  * @Description: 渲染器hpp
  * 
@@ -35,11 +35,17 @@ inline Buffers operator&(Buffers a, Buffers b)
 
 // 绘制的类型Primitive
 // include Line and Triangle
-enum class Primitive
-{
+// enum class Primitive
+// {
+    // Line,
+    // Triangle
+// };
+
+enum class Primitive {
     Line,
     Triangle
-};
+}
+
 
 /*
  * For the curious : The draw function takes two buffer id's as its arguments.
