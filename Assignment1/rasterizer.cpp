@@ -21,7 +21,8 @@ rst::ind_buf_id rst::rasterizer::load_indices(const std::vector<Eigen::Vector3i>
     auto id = get_next_id();
     ind_buf.emplace(id, indices);
 
-    return {id};
+    // return { id };
+    return { id };
 }
 
 // Bresenham's line drawing algorithm
