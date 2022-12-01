@@ -149,6 +149,9 @@ void rst::rasterizer::draw(rst::pos_buf_id pos_buffer, rst::ind_buf_id ind_buffe
     float f2 = (100 + 0.1) / 2.0;
 
     // make mvp Matrix4f
+    // 在这里得到对应的MVP矩阵 MVP = projection * view * model
+    // 最终用MVP矩阵去render每一个point即可
+    // MVP render 每一个point
     Eigen::Matrix4f mvp = projection * view * model;
 
     // 通过index_buffer对每一索引对应的点进行处理
@@ -165,9 +168,21 @@ void rst::rasterizer::draw(rst::pos_buf_id pos_buffer, rst::ind_buf_id ind_buffe
         };
 
         // 做归一化
+        // for(auto& vec : v) {
+            // vec /= vec.w();
+        //}
+
+
+        // 全部vec做一个归一化
         for(auto& vec : v) {
             vec /= vec.w();
         }
+
+
+        // for(auto& vec : v) {
+        //     vec /= vec.w();
+        // }
+
 
         // 进行视口变化
         for(auto& vert : v)
