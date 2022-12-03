@@ -2,7 +2,7 @@
  * @Author: GuinGuinSzu guinguinboys@gmail.com
  * @Date: 2022-11-28 23:38:36
  * @LastEditors: GuinGuinSzu guinguinboys@gmail.com
- * @LastEditTime: 2022-11-30 22:29:57
+ * @LastEditTime: 2022-12-03 14:00:24
  * @FilePath: \Assignment1\Triangle.cpp
  * @Description:
  *
@@ -43,7 +43,10 @@ void Triangle::setColor(int ind, float r, float g, float b) {
     // color[ind] = Vector3f((float)r / 255., (float)g / 255., (float)b / 255.);
     // then set the color
     // set the vextex color
+    // color[ind] = Vector3f((float)r / 255.f, (float)g / 255.f, (float)b / 255.f);
+
     color[ind] = Vector3f((float)r / 255.f, (float)g / 255.f, (float)b / 255.f);
+
     return;
 }
 
