@@ -1,0 +1,17 @@
+[
+{
+  "directory": "I:/GamesRender101/Games_Render/Assignment2/build",
+  "command": "I:\\mw64\\mingw64\\bin\\g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\main.cpp.obj -c I:\\GamesRender101\\Games_Render\\Assignment2\\main.cpp",
+  "file": "I:/GamesRender101/Games_Render/Assignment2/main.cpp"
+},
+{
+  "directory": "I:/GamesRender101/Games_Render/Assignment2/build",
+  "command": "I:\\mw64\\mingw64\\bin\\g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\rasterizer.cpp.obj -c I:\\GamesRender101\\Games_Render\\Assignment2\\rasterizer.cpp",
+  "file": "I:/GamesRender101/Games_Render/Assignment2/rasterizer.cpp"
+},
+{
+  "directory": "I:/GamesRender101/Games_Render/Assignment2/build",
+  "command": "I:\\mw64\\mingw64\\bin\\g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\Triangle.cpp.obj -c I:\\GamesRender101\\Games_Render\\Assignment2\\Triangle.cpp",
+  "file": "I:/GamesRender101/Games_Render/Assignment2/Triangle.cpp"
+}
+]

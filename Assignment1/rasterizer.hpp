@@ -2,8 +2,8 @@
  * @Author: GuinGuinSzu guinguinboys@gmail.com
  * @Date: 2022-11-27 18:57:13
  * @LastEditors: GuinGuinSzu guinguinboys@gmail.com
- * @LastEditTime: 2022-12-01 19:02:37
- * @FilePath: \Assignment1\rasterizer.hpp
+ * @LastEditTime: 2022-12-03 20:29:30
+ * @FilePath: \Games_Render\Assignment1\rasterizer.hpp
  * @Description: 渲染器hpp
  * 
  * Copyright (c) 2022 by GuinGuinSzu guinguinboys@gmail.com, All Rights Reserved. 
@@ -47,7 +47,7 @@ inline Buffers operator&(Buffers a, Buffers b)
 enum class Primitive {
     Line,
     Triangle
-}
+};
 
 
 /*
