@@ -53,6 +53,7 @@ int main(int argc, const char** argv)
     Eigen::Vector3f eye_pos = {0,0,5};
 
 
+    // 这里类似于Assignment1中硬编码了两个三角形
     std::vector<Eigen::Vector3f> pos
             {
                     {2, 0, -2},

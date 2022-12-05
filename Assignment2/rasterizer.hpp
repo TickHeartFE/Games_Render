@@ -86,6 +86,8 @@ namespace rst
         Eigen::Matrix4f view;
         Eigen::Matrix4f projection;
 
+        // Pos_Buf Ind_Buf Col_Buf
+        // 用Map记录对应的位置，索引以及颜色的Buffer
         std::map<int, std::vector<Eigen::Vector3f>> pos_buf;
         std::map<int, std::vector<Eigen::Vector3i>> ind_buf;
         std::map<int, std::vector<Eigen::Vector3f>> col_buf;
