@@ -1,6 +1,13 @@
-//
-// Created by LEI XU on 4/11/19.
-//
+/*
+ * @Author: GuinGuinSzu guinguinboys@gmail.com
+ * @Date: 2022-12-03 14:04:10
+ * @LastEditors: GuinGuinSzu guinguinboys@gmail.com
+ * @LastEditTime: 2022-12-05 19:07:46
+ * @FilePath: \Assignment2\Triangle.cpp
+ * @Description: Triangle.cpp 细节描述了三角形
+ *
+ * Copyright (c) 2022 by GuinGuinSzu guinguinboys@gmail.com, All Rights Reserved. 
+ */
 
 #include "Triangle.hpp"
 #include <algorithm>
@@ -46,6 +53,7 @@ void Triangle::setTexCoord(int ind, float s, float t) {
 std::array<Vector4f, 3> Triangle::toVector4() const
 {
     std::array<Eigen::Vector4f, 3> res;
+    // 使用transform
     std::transform(std::begin(v), std::end(v), res.begin(), [](auto& vec) { return Eigen::Vector4f(vec.x(), vec.y(), vec.z(), 1.f); });
     return res;
 }
