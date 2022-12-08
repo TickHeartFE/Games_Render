@@ -81,7 +81,8 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
         }
         
         // 视口转换 
-        //Viewport transformation
+        // Viewport transformation
+        // 在这里进行一个视口坐标系的变换
         for(auto& vert : v) {
             vert.x() = 0.5 * width * (vert.x() + 1.0);
             vert.y() = 0.5 * height * (vert.y() + 1.0);
