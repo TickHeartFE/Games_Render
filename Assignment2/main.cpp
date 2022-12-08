@@ -54,6 +54,7 @@ int main(int argc, const char** argv)
 
 
     // 这里类似于Assignment1中硬编码了两个三角形
+    // 硬编码了三角形的位置，索引以及对应的颜色
     std::vector<Eigen::Vector3f> pos
             {
                     {2, 0, -2},
