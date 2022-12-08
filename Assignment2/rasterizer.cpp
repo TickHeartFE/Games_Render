@@ -137,7 +137,27 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
         for(int y = y_min; y < y_max; y++) {
             if(insideTriangle(x + 0.5f, y + 0.5f, t.v)) {
                 // 首先得到重心坐标
+                // get the Barycentric2D
+                // auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+                // alpha beta gama就是对应的重心坐标的三个维度
                 auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+
+                // 这里进行了透视矫正
+                // w的倒数系数
+                float w_reciprocal = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+                // 对z进行插值
+                float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
+                // 对z进行修正
+                z_interpolated *= w_reciprocal;
+
+                // 判断当前点的z是否小于depth buffer里面对应的值
+                if(z_interpolated < depth_buf[get_index(x, y)]) {
+                    Eigen::Vector3f point(x, y, 1.0f);
+                    set_pixel(point, t.getColor());
+                    // 最后再维护depth buffer中的深度
+                    depth_buf[get_index(x, y)] = z_interpolated;
+                }
+
             }
         }
     }
