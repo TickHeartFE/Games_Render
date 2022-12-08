@@ -50,6 +50,37 @@ static bool insideTriangle(int x, int y, const Vector3f* _v) {
 
     return (p0p1.cross(p0p).z() > 0 && p1p2.cross(p1p).z() > 0 && p2p0.cross(p2p).z() > 0) || (p0p1.cross(p0p).z() < 0 && p1p2.cross(p1p).z() < 0 && p2p0.cross(p2p).z() < 0);
 
+    // TODO : Implement this function to check if the point (x, y) is inside the triangle represented by _v[0], _v[1], _v[2]
+    // Eigen::Vector3f p0p1(_v[0].x() - _v[1].x(), _v[0].y() - _v[1].y(), 1.0f);
+    // Eigen::Vector3f p1p2(_v[1].x() - _v[2].x(), _v[1].y() - _v[2].y(), 1.0f);
+    // Eigen::Vector3f p2p0(_v[2].x() - _v[0].x(), _v[2].y() - _v[0].y(), 1.0f);
+
+    // Eigen::Vector3f p0p(_v[0].x() - x, _v[0].y() - y, 1.0f);
+    // Eigen::Vector3f p1p(_v[1].x() - x, _v[1].y() - y, 1.0f);
+    // Eigen::Vector3f p2p(_v[2].x() - x, _v[2].y() - y, 1.0f);
+
+    // if(p0p1.cross(p0p).z() > 0.f) {
+    //     return p1p2.cross(p1p).z() > 0.f && p2p0.cross(p2p).z() > 0.f;
+    // } else {
+    //     return p1p2.cross(p1p).z() < 0.f && p2p0.cross(p2p).z() < 0.f;
+    // }
+
+
+    // TODO : Implement this function to check if the point (x, y) is inside the triangle represented by _v[0], _v[1], _v[2]
+    // Vector3f Q = { x,y,0 };
+
+    // Vector3f p0p1 = _v[1] - _v[0];
+    // Vector3f p0Q = Q - _v[0];
+
+    // Vector3f p1p2 = _v[2] - _v[1];
+    // Vector3f p1Q = Q - _v[1];
+
+    // Vector3f p2p0 = _v[0] - _v[2];
+    // Vector3f p2Q = Q - _v[2];
+
+    // //类定义里面已经定义是逆时针，所以只用考虑同正情况。
+    // return p0p1.cross(p0Q).z() > 0 && p1p2.cross(p1Q).z() > 0 && p2p0.cross(p2Q).z() > 0;
+
 }
 
 static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v) {
@@ -79,7 +110,7 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
         for(auto& vec : v) {
             vec /= vec.w();
         }
-        
+
         // 视口转换 
         // Viewport transformation
         // 在这里进行一个视口坐标系的变换
@@ -105,6 +136,7 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
 
         rasterize_triangle(t);
     }
+    // std::cout << "hello" << std::endl;
 }
 
 // Screen space rasterization
@@ -112,55 +144,120 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
 void rst::rasterizer::rasterize_triangle(const Triangle& t) {
     auto v = t.toVector4();
 
-    // TODO : Find out the bounding box of current triangle.
-    // iterate through the pixel and find if the current pixel is inside the triangle
-    std::vector<float> x_array{ v[0].x(), v[1].x(), v[2].x() };
-    std::vector<float> y_array{ v[0].y(), v[1].y(), v[2].y() };
+    // // TODO : Find out the bounding box of current triangle.
+    // // iterate through the pixel and find if the current pixel is inside the triangle
+    // std::vector<float> x_array{ v[0].x(), v[1].x(), v[2].x() };
+    // std::vector<float> y_array{ v[0].y(), v[1].y(), v[2].y() };
 
-    // 找出对应的boundingbox
-    std::sort(x_array.begin(), x_array.end());
-    std::sort(y_array.begin(), y_array.end());
+    // // 找出对应的boundingbox
+    // std::sort(x_array.begin(), x_array.end());
+    // std::sort(y_array.begin(), y_array.end());
 
-    // 向上下取整找到合理包围盒
-    int x_min = floor(x_array[0]), x_max = ceil(x_array[2]), y_min = floor(y_array[0]), y_max = ceil(y_array[2]);
+    // // 向上下取整找到合理包围盒
+    // int x_min = floor(x_array[0]), x_max = ceil(x_array[2]), y_min = floor(y_array[0]), y_max = ceil(y_array[2]);
 
-    // If so, use the following code to get the interpolated z value.
-    // auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
-    // float w_reciprocal = 1.0/(alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
-    // float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
-    // z_interpolated *= w_reciprocal;
 
-    // 使用ZBuffer算法来设置每一个像素的颜色
-    // TODO : set the current pixel (use the set_pixel function) to the color of the triangle (use getColor function) if it should be painted.
+    // // std::cout << x_min << " --- " << x_max << std::endl;
+
+    // // If so, use the following code to get the interpolated z value.
+    // // auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+    // // float w_reciprocal = 1.0/(alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+    // // float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
+    // // z_interpolated *= w_reciprocal;
+
+    // // 使用ZBuffer算法来设置每一个像素的颜色
+    // // TODO : set the current pixel (use the set_pixel function) to the color of the triangle (use getColor function) if it should be painted.
+
+    // for(int x = x_min; x < x_max; x++) {
+    //     for(int y = y_min; y < y_max; y++) {
+    //         if(insideTriangle(x + 0.5f, y + 0.5f, t.v)) {
+    //             // 首先得到重心坐标
+    //             // get the Barycentric2D
+    //             // auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+    //             // alpha beta gama就是对应的重心坐标的三个维度
+    //             auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+
+    //             // 这里进行了透视矫正
+    //             // w的倒数系数
+    //             float w_reciprocal = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+    //             // 对z进行插值
+    //             float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
+    //             // 对z进行修正
+    //             z_interpolated *= w_reciprocal;
+
+    //             // 判断当前点的z是否小于depth buffer里面对应的值
+    //             if(z_interpolated < depth_buf[get_index(x, y)]) {
+    //                 Eigen::Vector3f point(x, y, 1.0f);
+    //                 set_pixel(point, t.getColor());
+    //                 // 最后再维护depth buffer中的深度
+    //                 depth_buf[get_index(x, y)] = z_interpolated;
+    //             }
+
+    //         }
+    //     }
+    // }
+
+    // auto v = t.toVector4();
+
+    std::vector<float> x_arry{ v[0].x(), v[1].x(), v[2].x() };
+    std::vector<float> y_arry{ v[0].y(), v[1].y(), v[2].y() };
+    std::sort(x_arry.begin(), x_arry.end());
+    std::sort(y_arry.begin(), y_arry.end());
+    int x_min = floor(x_arry[0]), x_max = ceil(x_arry[2]),
+        y_min = floor(y_arry[0]), y_max = ceil(y_arry[2]);
 
     for(int x = x_min; x < x_max; x++) {
         for(int y = y_min; y < y_max; y++) {
             if(insideTriangle(x + 0.5f, y + 0.5f, t.v)) {
-                // 首先得到重心坐标
-                // get the Barycentric2D
-                // auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
-                // alpha beta gama就是对应的重心坐标的三个维度
                 auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
-
-                // 这里进行了透视矫正
-                // w的倒数系数
                 float w_reciprocal = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
-                // 对z进行插值
                 float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
-                // 对z进行修正
                 z_interpolated *= w_reciprocal;
-
-                // 判断当前点的z是否小于depth buffer里面对应的值
                 if(z_interpolated < depth_buf[get_index(x, y)]) {
-                    Eigen::Vector3f point(x, y, 1.0f);
+                    Eigen::Vector3f point(x, y, z_interpolated);
                     set_pixel(point, t.getColor());
-                    // 最后再维护depth buffer中的深度
                     depth_buf[get_index(x, y)] = z_interpolated;
                 }
-
             }
         }
     }
+
+    
+    // int min_x, max_x, min_y, max_y;
+    // min_x = std::min(v[0].x(), std::min(v[1].x(), v[2].x()));
+    // max_x = std::max(v[0].x(), std::max(v[1].x(), v[2].x()));
+    // min_y = std::min(v[0].y(), std::min(v[1].y(), v[2].y()));
+    // max_y = std::max(v[0].y(), std::max(v[1].y(), v[2].y()));
+
+
+    // for(int x = min_x; x <= max_x; x++) {
+    //     for(int y = min_y; y <= max_y; y++) {
+    //         //判断像素中心点是否在连续三角形内，若在三角形内，就尝试对该像素进行着色，若深度测试通过，便着色
+    //         if(insideTriangle(x + 0.5, y + 0.5, t.v)) {
+    //             // If so, use the following code to get the interpolated z value.
+    //             auto tup = computeBarycentric2D((float)x + 0.5, (float)y + 0.5, t.v);
+    //             float alpha;
+    //             float beta;
+    //             float gamma;
+    //             std::tie(alpha, beta, gamma) = tup;
+    //             float w_reciprocal = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+    //             float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
+    //             z_interpolated *= w_reciprocal;
+    //             //深度测试，通过便着色，并同时将深度存入缓存
+    //             //这里有个细节之前没注意，就是buf的取值要用get_index函数
+    //             if(depth_buf[get_index(x, y)] > z_interpolated) {
+    //                 // TODO : set the current pixel (use the set_pixel function) to the color of the triangle (use getColor function) if it should be painted.
+    //                 //深度存入缓存
+    //                 depth_buf[get_index(x, y)] = z_interpolated;
+    //                 Vector3f point = { (float)x,(float)y,z_interpolated };
+    //                 Vector3f color = t.getColor();
+    //                 //着色
+    //                 set_pixel(point, color);
+    //             }
+    //         }
+    //     }
+    // }
+
 }
 
 void rst::rasterizer::set_model(const Eigen::Matrix4f& m) {
@@ -184,7 +281,7 @@ void rst::rasterizer::clear(rst::Buffers buff) {
     }
 }
 
-rst::rasterizer::rasterizer(int w, int h) : width(w), height(h) {
+rst::rasterizer::rasterizer(int w, int h): width(w), height(h) {
     frame_buf.resize(w * h);
     depth_buf.resize(w * h);
 }
