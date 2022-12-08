@@ -84,6 +84,7 @@ int main(int argc, const char** argv)
     auto ind_id = r.load_indices(ind);
     auto col_id = r.load_colors(cols);
 
+    // init the key
     int key = 0;
     int frame_count = 0;
 
