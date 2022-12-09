@@ -93,13 +93,22 @@ namespace rst
         std::map<int, std::vector<Eigen::Vector3f>> col_buf;
 
         std::vector<Eigen::Vector3f> frame_buf;
-
         std::vector<float> depth_buf;
+
+        // 用来2xSSAA的buffer
+        // 包括深度和帧缓存
+        std::vector<std::vector<Eigen::Vector3f>> frame_buf_2xSSAA;
+        std::vector<std::vector<float>> depth_buf_2xSSAA;
+
         int get_index(int x, int y);
 
         int width, height;
 
         int next_id = 0;
         int get_next_id() { return next_id++; }
+
+        // 是否启用SSAA
+        bool bIsSSAA = true;
+
     };
 }

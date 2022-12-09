@@ -31,7 +31,33 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
 {
     // TODO: Copy-paste your implementation from the previous assignment.
-    Eigen::Matrix4f projection;
+    // Eigen::Matrix4f projection;
+
+    // 这里记得TODO，所以一定要参考pdf进行编写
+    // 原来的projection_matrix是空的，所以这里一定要注意编写
+
+    Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
+
+    // TODO: Implement this function
+    // Create the projection matrix for the given parameters.
+    // Then return it.
+
+    // 在这里构造对应的透视投影矩阵
+
+    eye_fov = eye_fov / 180 * MY_PI;
+    Eigen::Matrix4f aspect_fovY;
+
+    float ty = -1.0f / tan(eye_fov / 2.0f);
+    aspect_fovY << (ty / aspect_ratio), 0, 0, 0,
+        0, ty, 0, 0,
+        0, 0, (zNear + zFar) / (zNear - zFar), (-2 * zNear * zFar) / (zNear - zFar),
+        0, 0, 1, 0;
+
+    projection = aspect_fovY * projection;
+
+
+    return projection;
+
 
     return projection;
 }
