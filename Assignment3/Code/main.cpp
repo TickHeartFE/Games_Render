@@ -47,35 +47,39 @@ Eigen::Matrix4f get_model_matrix(float angle) {
 
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar) {
     // TODO: Use the same projection matrix from the previous assignments
-
-    float n = zNear;
-    float f = zFar;
+    // TODO: Copy-paste your implementation from the previous assignment.
     Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
-    float t = -tan((eye_fov / 360) * MY_PI) * (abs(n)); //top
-    float r = t / aspect_ratio;
 
-    Eigen::Matrix4f Mp;//透视矩阵
-    Mp <<
-        n, 0, 0, 0,
-        0, n, 0, 0,
-        0, 0, n + f, -n * f,
+    float height = -tan((eye_fov / 360) * MY_PI) * abs(zNear);
+    float weight = height / aspect_ratio;
+
+    // TODO: Implement this function
+    // Create the projection matrix for the given parameters.
+    // Then return it.
+
+    // 透视矩阵
+    Eigen::Matrix4f translate1;
+    translate1 << zNear, 0, 0, 0,
+        0, zNear, 0, 0,
+        0, 0, (zNear + zFar), -1.0 * zNear * zFar,
         0, 0, 1, 0;
-    Eigen::Matrix4f Mo_tran;//平移矩阵
-    Mo_tran <<
-        1, 0, 0, 0,
-        0, 1, 0, 0,  //b=-t;
-        0, 0, 1, -(n + f) / 2,
-        0, 0, 0, 1;
-    Eigen::Matrix4f Mo_scale;//缩放矩阵
-    Mo_scale <<
-        1 / r, 0, 0, 0,
-        0, 1 / t, 0, 0,
-        0, 0, 2 / (n - f), 0,
-        0, 0, 0, 1;
-    projection = (Mo_scale * Mo_tran) * Mp;//投影矩阵
 
-    
-    //这里一定要注意顺序，先透视再正交;正交里面先平移再缩放；否则做出来会是一条直线！
+    // 平移矩阵
+    Eigen::Matrix4f translate2;
+    translate2 << 1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, -(zNear + zFar) / 2.f,
+        0, 0, 0, 1.f;
+
+    // 缩放矩阵
+    Eigen::Matrix4f translate3;
+    translate3 << 1.f / weight, 0, 0, 0,
+        0, 1.f / height, 0, 0,
+        0, 0, 2.f / (zNear - zFar), 0,
+        0, 0, 0, 1.f;
+
+    projection = (translate3 * translate2) * translate1 * projection;
+
     return projection;
 
 }
@@ -259,12 +263,14 @@ int main(int argc, const char** argv) {
     float angle = 140.0;
     bool command_line = false;
 
+    // 注意到这里的路径换位计算机中具体的路径即可
     std::string filename = "output.png";
     objl::Loader Loader;
-    std::string obj_path = "../models/spot/";
+    std::string obj_path = "I://GamesRender101//Games_Render//Assignment3//Code//models//spot//";
 
     // Load .obj File
-    bool loadout = Loader.LoadFile("../models/spot/spot_triangulated_good.obj");
+    // 在这里载入对应的.obj文件
+    bool loadout = Loader.LoadFile("I://GamesRender101//Games_Render//Assignment3//Code//models//spot//spot_triangulated_good.obj");
     for(auto mesh : Loader.LoadedMeshes) {
         for(int i = 0;i < mesh.Vertices.size();i += 3) {
             Triangle* t = new Triangle();
@@ -282,12 +288,16 @@ int main(int argc, const char** argv) {
     auto texture_path = "hmap.jpg";
     r.set_texture(Texture(obj_path + texture_path));
 
-    std::function<Eigen::Vector3f(fragment_shader_payload)> active_shader = phong_fragment_shader;
+    std::function<Eigen::Vector3f(fragment_shader_payload)> active_shader = normal_fragment_shader;
+
+    std::cout << "argc is less than 2, Rasterizing using the normal shader\n";
+    active_shader = normal_fragment_shader;
 
     if(argc >= 2) {
         command_line = true;
         filename = std::string(argv[1]);
 
+        // 根据参数选择模式
         if(argc == 3 && std::string(argv[2]) == "texture") {
             std::cout << "Rasterizing using the texture shader\n";
             active_shader = texture_fragment_shader;
