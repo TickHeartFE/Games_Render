@@ -149,7 +149,7 @@ void rst::rasterizer::draw(rst::pos_buf_id pos_buffer, rst::ind_buf_id ind_buffe
     float f2 = (100 + 0.1) / 2.0;
 
     // make mvp Matrix4f
-    // 在这里得到对应的MVP矩阵 MVP = projection * view * model
+    // 在这里得到对应的MVP矩阵 MVP = projection * view * model 构造对应的MVP变换矩阵
     // 最终用MVP矩阵去render每一个point即可
     // MVP render 每一个point
     Eigen::Matrix4f mvp = projection * view * model;

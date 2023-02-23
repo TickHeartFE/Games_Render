@@ -1154,6 +1154,8 @@ namespace objl
 
             // Deal with last material
 
+            // Deal with last material
+
             // Push Back loaded Material
             LoadedMaterials.push_back(tempMaterial);
 
